@@ -1,0 +1,36 @@
+package com.mjc.school.repository.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name="comments")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+public class Comment implements BaseEntity<Long>{
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
+
+    private String content;
+
+    @CreatedDate
+    private LocalDateTime created;
+
+    @LastModifiedDate
+    private LocalDateTime modified;
+
+    @ManyToOne
+    @JoinColumn(name="news_id")
+    private News news;
+}

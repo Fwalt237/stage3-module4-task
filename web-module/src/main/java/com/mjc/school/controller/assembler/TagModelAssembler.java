@@ -1,6 +1,6 @@
 package com.mjc.school.controller.assembler;
 
-import com.mjc.school.controller.impl.TagController;
+import com.mjc.school.controller.TagController;
 import com.mjc.school.service.dto.TagDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

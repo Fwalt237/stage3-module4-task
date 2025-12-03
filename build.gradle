@@ -24,8 +24,20 @@ subprojects{
 
     dependencies {
         testImplementation "com.tngtech.archunit:archunit-junit5:1.2.1"
-
         testImplementation "org.springframework.boot:spring-boot-starter-test:3.2.0"
+        // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+        testImplementation 'io.rest-assured:rest-assured:5.3.0'
+        // https://mvnrepository.com/artifact/io.rest-assured/json-path
+        testImplementation 'io.rest-assured:json-path:5.3.0'
+        // https://mvnrepository.com/artifact/io.rest-assured/xml-path
+        testImplementation 'io.rest-assured:xml-path:5.3.0'
+        // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        // https://mvnrepository.com/artifact/org.hamcrest/hamcrest
+        testImplementation 'org.hamcrest:hamcrest:2.2'
+
+        // https://mvnrepository.com/artifact/com.h2database/h2
+        testImplementation 'com.h2database:h2:2.2.224'
 
         // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter
         implementation 'org.springframework.boot:spring-boot-starter:3.2.0'

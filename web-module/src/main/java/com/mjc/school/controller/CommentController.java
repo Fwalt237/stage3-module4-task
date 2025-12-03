@@ -1,6 +1,5 @@
-package com.mjc.school.controller.impl;
+package com.mjc.school.controller;
 
-import com.mjc.school.controller.BaseController;
 import com.mjc.school.controller.assembler.CommentModelAssembler;
 import com.mjc.school.service.CommentService;
 import com.mjc.school.service.dto.CommentDtoRequest;
@@ -25,7 +24,7 @@ import java.util.List;
 @RequestMapping("/stage3-module4-task/v1/comments")
 @RequiredArgsConstructor
 @Validated
-public class CommentController implements BaseController<CommentDtoRequest, CommentDtoResponse,Long> {
+public class CommentController {
 
     private final CommentService commentService;
     private final CommentModelAssembler assembler;
@@ -47,14 +46,12 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
         return ResponseEntity.ok(CollectionModel.of(models));
     }
 
-    @Override
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<CommentDtoResponse>> getById(@PathVariable Long id) {
         CommentDtoResponse comment = commentService.getById(id);
         return ResponseEntity.ok(assembler.toModel(comment,id));
     }
 
-    @Override
     @PostMapping
     public ResponseEntity<EntityModel<CommentDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) CommentDtoRequest createRequest) {
@@ -65,7 +62,6 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
                 .body(model);
     }
 
-    @Override
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<CommentDtoResponse>> update(
             @PathVariable Long id, @RequestBody @Validated(Mandatory.class) CommentDtoRequest updateRequest) {
@@ -73,7 +69,6 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
         return ResponseEntity.ok(assembler.toModel(comment,id));
     }
 
-    @Override
     @PatchMapping("/{id}")
     public ResponseEntity<EntityModel<CommentDtoResponse>> patch(
             @PathVariable Long id, @RequestBody @Valid CommentDtoRequest patchRequest) {
@@ -81,7 +76,6 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
         return ResponseEntity.ok(assembler.toModel(comment,id));
     }
 
-    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         commentService.deleteById(id);

@@ -1,6 +1,5 @@
-package com.mjc.school.controller.impl;
+package com.mjc.school.controller;
 
-import com.mjc.school.controller.BaseController;
 import com.mjc.school.controller.assembler.TagModelAssembler;
 import com.mjc.school.service.TagService;
 import com.mjc.school.service.dto.TagDtoRequest;
@@ -25,7 +24,7 @@ import java.util.List;
 @RequestMapping("/stage3-module4-task/v1/tags")
 @RequiredArgsConstructor
 @Validated
-public class TagController implements BaseController<TagDtoRequest, TagDtoResponse,Long> {
+public class TagController{
 
     private final TagService tagService;
     private final TagModelAssembler assembler;
@@ -47,14 +46,12 @@ public class TagController implements BaseController<TagDtoRequest, TagDtoRespon
         return ResponseEntity.ok(CollectionModel.of(models));
     }
 
-    @Override
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<TagDtoResponse>> getById(@PathVariable Long id) {
         TagDtoResponse tag = tagService.getById(id);
         return ResponseEntity.ok(assembler.toModel(tag,id));
     }
 
-    @Override
     @PostMapping
     public ResponseEntity<EntityModel<TagDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) TagDtoRequest createRequest) {
@@ -65,7 +62,6 @@ public class TagController implements BaseController<TagDtoRequest, TagDtoRespon
                 .body(model);
     }
 
-    @Override
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<TagDtoResponse>> update(
             @PathVariable Long id, @RequestBody @Validated(Mandatory.class) TagDtoRequest updateRequest) {
@@ -73,7 +69,6 @@ public class TagController implements BaseController<TagDtoRequest, TagDtoRespon
         return ResponseEntity.ok(assembler.toModel(tag,id));
     }
 
-    @Override
     @PatchMapping("/{id}")
     public ResponseEntity<EntityModel<TagDtoResponse>> patch(
             @PathVariable Long id, @RequestBody @Valid TagDtoRequest patchRequest) {
@@ -81,7 +76,6 @@ public class TagController implements BaseController<TagDtoRequest, TagDtoRespon
         return ResponseEntity.ok(assembler.toModel(tag,id));
     }
 
-    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         tagService.deleteById(id);

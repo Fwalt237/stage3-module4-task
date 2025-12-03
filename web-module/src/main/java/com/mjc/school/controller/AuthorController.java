@@ -1,6 +1,5 @@
-package com.mjc.school.controller.impl;
+package com.mjc.school.controller;
 
-import com.mjc.school.controller.BaseController;
 import com.mjc.school.controller.assembler.AuthorModelAssembler;
 import com.mjc.school.service.AuthorService;
 import com.mjc.school.service.dto.AuthorDtoRequest;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/stage3-module4-task/v1/authors")
 @RequiredArgsConstructor
 @Validated
-public class AuthorController implements BaseController<AuthorDtoRequest, AuthorDtoResponse,Long> {
+public class AuthorController {
 
     private final AuthorService authorService;
     private final AuthorModelAssembler assembler;
@@ -43,14 +42,12 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
         return ResponseEntity.ok(assembler.toModel(author,newsId));
     }
 
-    @Override
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<AuthorDtoResponse>> getById(@PathVariable Long id) {
         AuthorDtoResponse author = authorService.getById(id);
         return ResponseEntity.ok(assembler.toModel(author,id));
     }
 
-    @Override
     @PostMapping
     public ResponseEntity<EntityModel<AuthorDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) AuthorDtoRequest createRequest) {
@@ -61,7 +58,6 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
                 .body(model);
     }
 
-    @Override
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<AuthorDtoResponse>> update(
             @PathVariable Long id, @RequestBody @Validated(Mandatory.class) AuthorDtoRequest updateRequest) {
@@ -69,7 +65,6 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
         return ResponseEntity.ok(assembler.toModel(author,id));
     }
 
-    @Override
     @PatchMapping("/{id}")
     public ResponseEntity<EntityModel<AuthorDtoResponse>> patch(
             @PathVariable Long id, @RequestBody @Valid AuthorDtoRequest patchRequest) {
@@ -77,7 +72,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
         return ResponseEntity.ok(assembler.toModel(author,id));
     }
 
-    @Override
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         authorService.deleteById(id);

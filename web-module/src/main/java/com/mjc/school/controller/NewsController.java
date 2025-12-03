@@ -1,10 +1,9 @@
-package com.mjc.school.controller.impl;
+package com.mjc.school.controller;
 
 import com.mjc.school.controller.assembler.NewsModelAssembler;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.dto.NewsDtoResponse;
-import com.mjc.school.controller.BaseController;
 import com.mjc.school.service.validated.Mandatory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ import java.util.List;
 @RequestMapping("/stage3-module4-task/v1/news")
 @RequiredArgsConstructor
 @Validated
-public class NewsController implements BaseController<NewsDtoRequest, NewsDtoResponse, Long>{
+public class NewsController{
 
     private final NewsService newsService;
     private final NewsModelAssembler assembler;
@@ -61,14 +60,12 @@ public class NewsController implements BaseController<NewsDtoRequest, NewsDtoRes
         return ResponseEntity.ok(CollectionModel.of(models));
     }
 
-    @Override
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<NewsDtoResponse>> getById(@PathVariable Long id) {
         NewsDtoResponse news = newsService.getById(id);
         return ResponseEntity.ok(assembler.toModel(news,id));
     }
 
-    @Override
     @PostMapping
     public ResponseEntity<EntityModel<NewsDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) NewsDtoRequest createRequest) {
@@ -79,7 +76,6 @@ public class NewsController implements BaseController<NewsDtoRequest, NewsDtoRes
                 .body(model);
     }
 
-    @Override
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<NewsDtoResponse>> update(
             @PathVariable Long id, @RequestBody @Validated(Mandatory.class) NewsDtoRequest updateRequest) {
@@ -87,7 +83,6 @@ public class NewsController implements BaseController<NewsDtoRequest, NewsDtoRes
         return ResponseEntity.ok(assembler.toModel(news,id));
     }
 
-    @Override
     @PatchMapping("/{id}")
     public ResponseEntity<EntityModel<NewsDtoResponse>> patch(
             @PathVariable Long id, @RequestBody @Valid NewsDtoRequest patchRequest) {
@@ -95,7 +90,6 @@ public class NewsController implements BaseController<NewsDtoRequest, NewsDtoRes
         return ResponseEntity.ok(assembler.toModel(news,id));
     }
 
-    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         newsService.deleteById(id);

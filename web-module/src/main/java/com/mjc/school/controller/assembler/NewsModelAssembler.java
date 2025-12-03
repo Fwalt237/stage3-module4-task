@@ -1,9 +1,9 @@
 package com.mjc.school.controller.assembler;
 
-import com.mjc.school.controller.impl.AuthorController;
-import com.mjc.school.controller.impl.CommentController;
-import com.mjc.school.controller.impl.NewsController;
-import com.mjc.school.controller.impl.TagController;
+import com.mjc.school.controller.AuthorController;
+import com.mjc.school.controller.CommentController;
+import com.mjc.school.controller.NewsController;
+import com.mjc.school.controller.TagController;
 import com.mjc.school.service.dto.NewsDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

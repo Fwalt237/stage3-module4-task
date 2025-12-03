@@ -1,7 +1,7 @@
 package com.mjc.school.controller.assembler;
 
 
-import com.mjc.school.controller.impl.AuthorController;
+import com.mjc.school.controller.AuthorController;
 import com.mjc.school.service.dto.AuthorDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

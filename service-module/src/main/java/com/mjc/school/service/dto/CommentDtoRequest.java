@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public record CommentDtoRequest(
-        @NotNull @Positive
+        @Positive
         Long id,
 
         @NotBlank(groups = Mandatory.class)

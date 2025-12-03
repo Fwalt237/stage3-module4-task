@@ -10,7 +10,7 @@ import java.util.List;
 
 public record NewsDtoRequest(
 
-        @NotNull @Positive
+        @Positive
         Long id,
 
         @NotBlank(groups = Mandatory.class)

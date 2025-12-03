@@ -1,6 +1,6 @@
 package com.mjc.school.controller.assembler;
 
-import com.mjc.school.controller.impl.CommentController;
+import com.mjc.school.controller.CommentController;
 import com.mjc.school.service.dto.CommentDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

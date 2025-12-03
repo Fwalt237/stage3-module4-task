@@ -1,4 +1,4 @@
 dependencies {
     implementation project(':service-module')
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.8'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.0'
 }

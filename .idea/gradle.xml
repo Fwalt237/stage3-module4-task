@@ -4,14 +4,28 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-logic" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="C:/Gradle" />
+        <option name="gradleJvm" value="temurin-17" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/module-main" />
-            <option value="$PROJECT_DIR$/module-repository" />
-            <option value="$PROJECT_DIR$/module-service" />
-            <option value="$PROJECT_DIR$/module-web" />
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/main-module" />
+            <option value="$PROJECT_DIR$/repository-module" />
+            <option value="$PROJECT_DIR$/service-module" />
+            <option value="$PROJECT_DIR$/web-module" />
           </set>
         </option>
       </GradleProjectSettings>

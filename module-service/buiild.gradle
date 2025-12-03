@@ -1,8 +1,0 @@
-plugins {
-    id 'io.spring.dependency-management'
-    id 'java-library'
-}
-
-dependencies {
-    implementation project(':module-repository')
-}

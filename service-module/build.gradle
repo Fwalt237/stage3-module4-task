@@ -1,0 +1,9 @@
+dependencies {
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+    implementation project(':repository-module')
+}

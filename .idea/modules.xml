@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/main-module/main-module.iml" filepath="$PROJECT_DIR$/main-module/main-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/stage3-module4-task.iml" filepath="$PROJECT_DIR$/.idea/stage3-module4-task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main-module/stage3-module4-task.main-module.main.iml" filepath="$PROJECT_DIR$/.idea/modules/main-module/stage3-module4-task.main-module.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main-module/stage3-module4-task.main-module.test.iml" filepath="$PROJECT_DIR$/.idea/modules/main-module/stage3-module4-task.main-module.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/repository-module/stage3-module4-task.repository-module.main.iml" filepath="$PROJECT_DIR$/.idea/modules/repository-module/stage3-module4-task.repository-module.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/repository-module/stage3-module4-task.repository-module.test.iml" filepath="$PROJECT_DIR$/.idea/modules/repository-module/stage3-module4-task.repository-module.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service-module/stage3-module4-task.service-module.main.iml" filepath="$PROJECT_DIR$/.idea/modules/service-module/stage3-module4-task.service-module.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service-module/stage3-module4-task.service-module.test.iml" filepath="$PROJECT_DIR$/.idea/modules/service-module/stage3-module4-task.service-module.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/web-module/stage3-module4-task.web-module.main.iml" filepath="$PROJECT_DIR$/.idea/modules/web-module/stage3-module4-task.web-module.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/web-module/stage3-module4-task.web-module.test.iml" filepath="$PROJECT_DIR$/.idea/modules/web-module/stage3-module4-task.web-module.test.iml" />
     </modules>
   </component>
 </project>

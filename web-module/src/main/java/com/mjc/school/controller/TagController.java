@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/stage3-module4-task/v1/tags")
 @RequiredArgsConstructor
-@Validated
 public class TagController{
 
     private final TagService tagService;

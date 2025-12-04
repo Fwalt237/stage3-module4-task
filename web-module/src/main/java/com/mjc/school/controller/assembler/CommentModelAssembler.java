@@ -59,9 +59,11 @@ public class CommentModelAssembler {
                 .getAll(searchContent, PageRequest.of(0,pageable.getPageSize(),pageable.getSort())))
                 .withRel("first"));
 
-        pagedModel.add(linkTo(methodOn(CommentController.class)
-                .getAll(searchContent, PageRequest.of(page.getTotalPages()-1,pageable.getPageSize(),pageable.getSort())))
-                .withRel("last"));
+        if(page.getTotalPages() > 1){
+            pagedModel.add(linkTo(methodOn(CommentController.class)
+                    .getAll(searchContent, PageRequest.of(page.getTotalPages()-1,pageable.getPageSize(),pageable.getSort())))
+                    .withRel("last"));
+        }
 
         return pagedModel;
     }

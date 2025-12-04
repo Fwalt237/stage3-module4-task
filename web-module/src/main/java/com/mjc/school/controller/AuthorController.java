@@ -17,10 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/stage3-module4-task/v1/authors")
 @RequiredArgsConstructor
-@Validated
 public class AuthorController {
 
     private final AuthorService authorService;

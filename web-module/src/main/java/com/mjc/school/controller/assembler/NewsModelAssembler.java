@@ -75,9 +75,11 @@ public class NewsModelAssembler {
                 tagNames,tagIds,authorName,title,content,
                 PageRequest.of(0,pageable.getPageSize(),pageable.getSort()))).withRel("first"));
 
-        pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
-                tagNames,tagIds,authorName,title,content,
-                PageRequest.of(page.getTotalPages()-1,pageable.getPageSize(),pageable.getSort()))).withRel("last"));
+        if(page.getTotalPages() > 1){
+            pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
+                    tagNames,tagIds,authorName,title,content,
+                    PageRequest.of(page.getTotalPages()-1,pageable.getPageSize(),pageable.getSort()))).withRel("last"));
+        }
 
         return pagedModel;
     }

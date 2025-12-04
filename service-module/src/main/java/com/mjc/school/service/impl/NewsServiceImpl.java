@@ -98,7 +98,7 @@ public class NewsServiceImpl implements NewsService{
         }
         News news = findByIdOrThrow(id);
         if(hasText(patchRequest.title())) news.setTitle(patchRequest.title());
-        if(hasText(patchRequest.content())) news.setTitle(patchRequest.content());
+        if(hasText(patchRequest.content())) news.setContent(patchRequest.content());
         if(patchRequest.authorId()!=null){
             doesAuthorExist(patchRequest.authorId());
             news.setAuthor(authorRepository.getReferenceById(patchRequest.authorId()));

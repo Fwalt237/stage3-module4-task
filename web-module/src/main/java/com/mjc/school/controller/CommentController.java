@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/stage3-module4-task/v1/comments")
 @RequiredArgsConstructor
-@Validated
 public class CommentController {
 
     private final CommentService commentService;

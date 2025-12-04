@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/stage3-module4-task/v1/news")
 @RequiredArgsConstructor
-@Validated
 public class NewsController{
 
     private final NewsService newsService;

@@ -7,12 +7,17 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'org.springframework.boot'
 }
 
 dependencies {
-    // This dependency is used by the application.
     implementation project(':web-module')
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.rest-assured:rest-assured'
+}
+
+test {
+    useJUnitPlatform()
 }

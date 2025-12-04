@@ -26,9 +26,5 @@ public abstract class CommentMapper {
     @Mapping(target = "news", expression =
             "java(newsRepository.getReferenceById(dto.newsId()))")
     public abstract Comment dtoToModel(CommentDtoRequest dto);
-//
-//    @Named("loadNews")
-//    static News loadNews(Long newsId, @Context NewsRepository newsRepository){
-//        return newsRepository.getReferenceById(newsId);
-//    }
+
 }

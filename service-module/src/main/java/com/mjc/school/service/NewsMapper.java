@@ -39,14 +39,5 @@ public abstract class NewsMapper {
             "java(dto.tagIds().stream().map(tagId -> tagRepository.getReferenceById(tagId)).toList())")
     public abstract  News dtoToModel(NewsDtoRequest dto);
 
-//    @Named("loadAuthor")
-//    static Author loadAuthor(Long authorId, @Context AuthorRepository authorRepository){
-//        return authorRepository.getReferenceById(authorId);
-//    }
-//
-//    @Named("loadTags")
-//    static List<Tag> loadTags(List<Long> tagIds, @Context TagRepository tagRepository){
-//        return tagIds == null ? List.of() : tagRepository.findAllById(tagIds);
-//    }
 }
 

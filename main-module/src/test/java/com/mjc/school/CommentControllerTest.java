@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -13,16 +13,16 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = com.mjc.school.Main.class)
+        classes = Main.class)
 @ActiveProfiles("test")
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class AuthorControllerTest {
+class CommentControllerTest {
 
     @LocalServerPort
     private int port;
 
-    private static final String BASE_PATH = "/stage3-module4-task/v1/authors";
+    private static final String BASE_PATH = "/stage3-module4-task/v1/comments";
 
     @BeforeEach
     void setUp() {
@@ -40,20 +40,8 @@ class AuthorControllerTest {
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(1))
-                .body("name", notNullValue())
-                .body("_links.self.href", endsWith("/authors/1"));
-    }
-
-    @Test
-    void getByNewsId_withValidNewsId_shouldReturnAuthor() {
-        given()
-                .pathParam("newsId", 1L)
-                .when()
-                .get("/by-news/{newsId}")
-                .then()
-                .statusCode(200)
-                .body("id", notNullValue())
-                .body("name", notNullValue());
+                .body("content", notNullValue())
+                .body("_links.self.href", endsWith("/comments/1"));
     }
 
     @Test
@@ -66,27 +54,14 @@ class AuthorControllerTest {
                 .statusCode(404);
     }
 
-    @Test
-    void create_withValidRequest_shouldReturnCreated() {
-        String json = """
-            {"name": "Valid New Author"}
-            """;
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(json)
-                .when()
-                .post()
-                .then()
-                .statusCode(201)
-                .body("name", equalTo("Valid New Author"))
-                .body("id", notNullValue());
-    }
 
     @Test
     void create_withBlankName_shouldReturn400() {
         String json = """
-            {"name": ""}
+            {
+                "content": "   ",
+                "newsId": 1
+            }
             """;
 
         given()
@@ -101,7 +76,10 @@ class AuthorControllerTest {
     @Test
     void update_withMismatchedId_shouldReturn400() {
         String json = """
-            {"id": 999, "name": "Wrong"}
+            {
+                "id": 999,
+                "content": "Wrong ID comment"
+            }
             """;
 
         given()
@@ -112,25 +90,6 @@ class AuthorControllerTest {
                 .put("/{id}")
                 .then()
                 .statusCode(400);
-    }
-
-    @Test
-    void deleteById_withValidId_shouldReturnNoContent() {
-        int id = given()
-                .contentType(ContentType.JSON)
-                .body("{\"name\": \"Delete Me\"}")
-                .post()
-                .then()
-                .statusCode(201)
-                .extract()
-                .path("id");
-
-        given()
-                .pathParam("id", id)
-                .when()
-                .delete("/{id}")
-                .then()
-                .statusCode(204);
     }
 
     @Test

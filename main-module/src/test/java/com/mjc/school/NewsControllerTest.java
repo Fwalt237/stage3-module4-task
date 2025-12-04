@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -13,16 +13,16 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = com.mjc.school.Main.class)
+        classes = Main.class)
 @ActiveProfiles("test")
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class TagControllerTest {
+class NewsControllerTest {
 
     @LocalServerPort
     private int port;
 
-    private static final String BASE_PATH = "/stage3-module4-task/v1/tags";
+    private static final String BASE_PATH = "/stage3-module4-task/v1/news";
 
     @BeforeEach
     void setUp() {
@@ -40,9 +40,10 @@ class TagControllerTest {
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(1))
-                .body("name", notNullValue())
-                .body("_links.self.href", endsWith("/tags/1"));
+                .body("title", notNullValue())
+                .body("_links.self.href", endsWith("/news/1"));
     }
+
 
     @Test
     void getById_withInvalidId_shouldReturn404() {
@@ -57,7 +58,12 @@ class TagControllerTest {
     @Test
     void create_withBlankName_shouldReturn400() {
         String json = """
-            {"name": "   "}
+            {
+                "title": "",
+                "content": "Some content",
+                "authorId": 1,
+                "tagIds": []
+            }
             """;
 
         given()
@@ -72,7 +78,13 @@ class TagControllerTest {
     @Test
     void update_withMismatchedId_shouldReturn400() {
         String json = """
-            {"id": 999, "name": "Wrong ID Tag"}
+            {
+                "id": 999,
+                "title": "Wrong ID News",
+                "content": "Content here",
+                "authorId": 1,
+                "tagIds": []
+            }
             """;
 
         given()
@@ -83,25 +95,6 @@ class TagControllerTest {
                 .put("/{id}")
                 .then()
                 .statusCode(400);
-    }
-
-    @Test
-    void deleteById_withValidId_shouldReturnNoContent() {
-        int id = given()
-                .contentType(ContentType.JSON)
-                .body("{\"name\":\"TempTag\"}")
-                .post()
-                .then()
-                .statusCode(201)
-                .extract()
-                .path("id");
-
-        given()
-                .pathParam("id", id)
-                .when()
-                .delete("/{id}")
-                .then()
-                .statusCode(204);
     }
 
     @Test

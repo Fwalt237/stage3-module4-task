@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -8,20 +8,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = com.mjc.school.Main.class)
+        classes = Main.class)
 @ActiveProfiles("test")
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class CommentControllerTest {
+class TagControllerTest {
 
     @LocalServerPort
     private int port;
 
-    private static final String BASE_PATH = "/stage3-module4-task/v1/comments";
+    private static final String BASE_PATH = "/stage3-module4-task/v1/tags";
 
     @BeforeEach
     void setUp() {
@@ -39,8 +40,8 @@ class CommentControllerTest {
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(1))
-                .body("content", notNullValue())
-                .body("_links.self.href", endsWith("/comments/1"));
+                .body("name", notNullValue())
+                .body("_links.self.href", endsWith("/tags/1"));
     }
 
     @Test
@@ -53,14 +54,10 @@ class CommentControllerTest {
                 .statusCode(404);
     }
 
-
     @Test
     void create_withBlankName_shouldReturn400() {
         String json = """
-            {
-                "content": "   ",
-                "newsId": 1
-            }
+            {"name": "   "}
             """;
 
         given()
@@ -75,10 +72,7 @@ class CommentControllerTest {
     @Test
     void update_withMismatchedId_shouldReturn400() {
         String json = """
-            {
-                "id": 999,
-                "content": "Wrong ID comment"
-            }
+            {"id": 999, "name": "Wrong ID Tag"}
             """;
 
         given()
@@ -89,6 +83,25 @@ class CommentControllerTest {
                 .put("/{id}")
                 .then()
                 .statusCode(400);
+    }
+
+    @Test
+    void deleteById_withValidId_shouldReturnNoContent() {
+        int id = given()
+                .contentType(ContentType.JSON)
+                .body("{\"name\":\"TempTag\"}")
+                .post()
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("id");
+
+        given()
+                .pathParam("id", id)
+                .when()
+                .delete("/{id}")
+                .then()
+                .statusCode(204);
     }
 
     @Test

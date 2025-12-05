@@ -1,5 +1,6 @@
-package com.mjc.school;
+package com.mjc.school.controller;
 
+import com.mjc.school.Main;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ import static org.hamcrest.Matchers.*;
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class NewsControllerTest {
+class NewsControllerImplTest {
 
     @LocalServerPort
     private int port;

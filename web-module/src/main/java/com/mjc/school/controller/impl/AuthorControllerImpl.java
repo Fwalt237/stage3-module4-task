@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school.controller.impl;
 
 import com.mjc.school.controller.assembler.AuthorModelAssembler;
 import com.mjc.school.service.AuthorService;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/authors")
 @RequiredArgsConstructor
-public class AuthorController {
+public class AuthorControllerImpl {
 
     private final AuthorService authorService;
     private final AuthorModelAssembler assembler;

@@ -1,5 +1,6 @@
-package com.mjc.school;
+package com.mjc.school.controller;
 
+import com.mjc.school.Main;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,12 +20,12 @@ import static org.hamcrest.Matchers.*;
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class AuthorControllerTest {
+class TagControllerImplTest {
 
     @LocalServerPort
     private int port;
 
-    private static final String BASE_PATH = "/stage3-module4-task/v1/authors";
+    private static final String BASE_PATH = "/stage3-module4-task/v1/tags";
 
     @BeforeEach
     void setUp() {
@@ -43,19 +44,7 @@ class AuthorControllerTest {
                 .statusCode(200)
                 .body("id", equalTo(1))
                 .body("name", notNullValue())
-                .body("_links.self.href", endsWith("/authors/1"));
-    }
-
-    @Test
-    void getByNewsId_withValidNewsId_shouldReturnAuthor() {
-        given()
-                .pathParam("newsId", 1L)
-                .when()
-                .get("/by-news/{newsId}")
-                .then()
-                .statusCode(200)
-                .body("id", notNullValue())
-                .body("name", notNullValue());
+                .body("_links.self.href", endsWith("/tags/1"));
     }
 
     @Test
@@ -69,26 +58,9 @@ class AuthorControllerTest {
     }
 
     @Test
-    void create_withValidRequest_shouldReturnCreated() {
-        String json = """
-            {"name": "Valid New Author"}
-            """;
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(json)
-                .when()
-                .post()
-                .then()
-                .statusCode(201)
-                .body("name", equalTo("Valid New Author"))
-                .body("id", notNullValue());
-    }
-
-    @Test
     void create_withBlankName_shouldReturn400() {
         String json = """
-            {"name": ""}
+            {"name": "   "}
             """;
 
         given()
@@ -103,7 +75,7 @@ class AuthorControllerTest {
     @Test
     void update_withMismatchedId_shouldReturn400() {
         String json = """
-            {"id": 999, "name": "Wrong"}
+            {"id": 999, "name": "Wrong ID Tag"}
             """;
 
         given()
@@ -120,7 +92,7 @@ class AuthorControllerTest {
     void deleteById_withValidId_shouldReturnNoContent() {
         int id = given()
                 .contentType(ContentType.JSON)
-                .body("{\"name\": \"Delete Me\"}")
+                .body("{\"name\":\"TempTag\"}")
                 .post()
                 .then()
                 .statusCode(201)

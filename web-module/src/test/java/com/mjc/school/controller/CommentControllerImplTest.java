@@ -1,5 +1,6 @@
-package com.mjc.school;
+package com.mjc.school.controller;
 
+import com.mjc.school.Main;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,12 +20,12 @@ import static org.hamcrest.Matchers.*;
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class TagControllerTest {
+class CommentControllerImplTest {
 
     @LocalServerPort
     private int port;
 
-    private static final String BASE_PATH = "/stage3-module4-task/v1/tags";
+    private static final String BASE_PATH = "/stage3-module4-task/v1/comments";
 
     @BeforeEach
     void setUp() {
@@ -42,8 +43,8 @@ class TagControllerTest {
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(1))
-                .body("name", notNullValue())
-                .body("_links.self.href", endsWith("/tags/1"));
+                .body("content", notNullValue())
+                .body("_links.self.href", endsWith("/comments/1"));
     }
 
     @Test
@@ -56,10 +57,14 @@ class TagControllerTest {
                 .statusCode(404);
     }
 
+
     @Test
     void create_withBlankName_shouldReturn400() {
         String json = """
-            {"name": "   "}
+            {
+                "content": "   ",
+                "newsId": 1
+            }
             """;
 
         given()
@@ -74,7 +79,10 @@ class TagControllerTest {
     @Test
     void update_withMismatchedId_shouldReturn400() {
         String json = """
-            {"id": 999, "name": "Wrong ID Tag"}
+            {
+                "id": 999,
+                "content": "Wrong ID comment"
+            }
             """;
 
         given()
@@ -85,25 +93,6 @@ class TagControllerTest {
                 .put("/{id}")
                 .then()
                 .statusCode(400);
-    }
-
-    @Test
-    void deleteById_withValidId_shouldReturnNoContent() {
-        int id = given()
-                .contentType(ContentType.JSON)
-                .body("{\"name\":\"TempTag\"}")
-                .post()
-                .then()
-                .statusCode(201)
-                .extract()
-                .path("id");
-
-        given()
-                .pathParam("id", id)
-                .when()
-                .delete("/{id}")
-                .then()
-                .statusCode(204);
     }
 
     @Test

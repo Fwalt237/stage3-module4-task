@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school.controller.impl;
 
 import com.mjc.school.controller.assembler.CommentModelAssembler;
 import com.mjc.school.service.CommentService;
@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/comments")
 @RequiredArgsConstructor
-public class CommentController {
+public class CommentControllerImpl {
 
     private final CommentService commentService;
     private final CommentModelAssembler assembler;

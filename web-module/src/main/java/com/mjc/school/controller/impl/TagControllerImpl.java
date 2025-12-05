@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school.controller.impl;
 
 import com.mjc.school.controller.assembler.TagModelAssembler;
 import com.mjc.school.service.TagService;
@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/tags")
 @RequiredArgsConstructor
-public class TagController{
+public class TagControllerImpl {
 
     private final TagService tagService;
     private final TagModelAssembler assembler;

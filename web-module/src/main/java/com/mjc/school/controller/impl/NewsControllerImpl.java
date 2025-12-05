@@ -1,4 +1,4 @@
-package com.mjc.school.controller;
+package com.mjc.school.controller.impl;
 
 import com.mjc.school.controller.assembler.NewsModelAssembler;
 import com.mjc.school.service.NewsService;
@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/news")
 @RequiredArgsConstructor
-public class NewsController{
+public class NewsControllerImpl {
 
     private final NewsService newsService;
     private final NewsModelAssembler assembler;

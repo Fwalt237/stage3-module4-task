@@ -1,9 +1,9 @@
 package com.mjc.school.controller.assembler;
 
-import com.mjc.school.controller.AuthorController;
-import com.mjc.school.controller.CommentController;
-import com.mjc.school.controller.NewsController;
-import com.mjc.school.controller.TagController;
+import com.mjc.school.controller.impl.AuthorControllerImpl;
+import com.mjc.school.controller.impl.CommentControllerImpl;
+import com.mjc.school.controller.impl.NewsControllerImpl;
+import com.mjc.school.controller.impl.TagControllerImpl;
 import com.mjc.school.service.dto.NewsDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,13 +24,13 @@ public class NewsModelAssembler {
 
         var model = EntityModel.of(newsDtoResponse);
 
-        model.add(linkTo(methodOn(NewsController.class).getById(id)).withSelfRel());
-        model.add(linkTo(methodOn(NewsController.class).update(id,null)).withRel("update"));
-        model.add(linkTo(methodOn(NewsController.class).patch(id,null)).withRel("patch"));
-        model.add(linkTo(methodOn(NewsController.class).deleteById(id)).withRel("delete"));
-        model.add(linkTo(methodOn(AuthorController.class).getByNewsId(id)).withRel("author"));
-        model.add(linkTo(methodOn(TagController.class).getByNewsId(id)).withRel("tags"));
-        model.add(linkTo(methodOn(CommentController.class).getByNewsId(id)).withRel("comments"));
+        model.add(linkTo(methodOn(NewsControllerImpl.class).getById(id)).withSelfRel());
+        model.add(linkTo(methodOn(NewsControllerImpl.class).update(id,null)).withRel("update"));
+        model.add(linkTo(methodOn(NewsControllerImpl.class).patch(id,null)).withRel("patch"));
+        model.add(linkTo(methodOn(NewsControllerImpl.class).deleteById(id)).withRel("delete"));
+        model.add(linkTo(methodOn(AuthorControllerImpl.class).getByNewsId(id)).withRel("author"));
+        model.add(linkTo(methodOn(TagControllerImpl.class).getByNewsId(id)).withRel("tags"));
+        model.add(linkTo(methodOn(CommentControllerImpl.class).getByNewsId(id)).withRel("comments"));
 
         return model;
     }
@@ -55,28 +55,28 @@ public class NewsModelAssembler {
 
         var pagedModel = PagedModel.of(entityModels.getContent(), metadata);
 
-        pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
+        pagedModel.add(linkTo(methodOn(NewsControllerImpl.class).getAll(
                 tagNames,tagIds,authorName,title,content,
                 pageable)).withSelfRel());
 
         if(page.hasPrevious()){
-            pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
+            pagedModel.add(linkTo(methodOn(NewsControllerImpl.class).getAll(
                     tagNames,tagIds,authorName,title,content,
                     pageable.previousOrFirst())).withRel("prev"));
         }
 
         if(page.hasNext()){
-            pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
+            pagedModel.add(linkTo(methodOn(NewsControllerImpl.class).getAll(
                     tagNames,tagIds,authorName,title,content,
                     pageable.next())).withRel("next"));
         }
 
-        pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
+        pagedModel.add(linkTo(methodOn(NewsControllerImpl.class).getAll(
                 tagNames,tagIds,authorName,title,content,
                 PageRequest.of(0,pageable.getPageSize(),pageable.getSort()))).withRel("first"));
 
         if(page.getTotalPages() > 1){
-            pagedModel.add(linkTo(methodOn(NewsController.class).getAll(
+            pagedModel.add(linkTo(methodOn(NewsControllerImpl.class).getAll(
                     tagNames,tagIds,authorName,title,content,
                     PageRequest.of(page.getTotalPages()-1,pageable.getPageSize(),pageable.getSort()))).withRel("last"));
         }

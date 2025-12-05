@@ -1,6 +1,6 @@
 package com.mjc.school.controller.assembler;
 
-import com.mjc.school.controller.TagController;
+import com.mjc.school.controller.impl.TagControllerImpl;
 import com.mjc.school.service.dto.TagDtoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,10 +19,10 @@ public class TagModelAssembler {
 
         var model = EntityModel.of(tagDtoResponse);
 
-        model.add(linkTo(methodOn(TagController.class).getById(id)).withSelfRel());
-        model.add(linkTo(methodOn(TagController.class).update(id,null)).withRel("update"));
-        model.add(linkTo(methodOn(TagController.class).patch(id,null)).withRel("patch"));
-        model.add(linkTo(methodOn(TagController.class).deleteById(id)).withRel("delete"));
+        model.add(linkTo(methodOn(TagControllerImpl.class).getById(id)).withSelfRel());
+        model.add(linkTo(methodOn(TagControllerImpl.class).update(id,null)).withRel("update"));
+        model.add(linkTo(methodOn(TagControllerImpl.class).patch(id,null)).withRel("patch"));
+        model.add(linkTo(methodOn(TagControllerImpl.class).deleteById(id)).withRel("delete"));
 
         return model;
     }
@@ -43,25 +43,25 @@ public class TagModelAssembler {
 
         var pagedModel = PagedModel.of(entityModels.getContent(),metadata);
 
-        pagedModel.add(linkTo(methodOn(TagController.class)
+        pagedModel.add(linkTo(methodOn(TagControllerImpl.class)
                 .getAll(searchName,pageable)).withSelfRel());
 
         if(page.hasPrevious()){
-            pagedModel.add(linkTo(methodOn(TagController.class)
+            pagedModel.add(linkTo(methodOn(TagControllerImpl.class)
                     .getAll(searchName,pageable.previousOrFirst())).withRel("prev"));
         }
 
         if(page.hasNext()){
-            pagedModel.add(linkTo(methodOn(TagController.class)
+            pagedModel.add(linkTo(methodOn(TagControllerImpl.class)
                     .getAll(searchName,pageable.next())).withRel("next"));
         }
 
-        pagedModel.add(linkTo(methodOn(TagController.class)
+        pagedModel.add(linkTo(methodOn(TagControllerImpl.class)
                 .getAll(searchName, PageRequest.of(0,pageable.getPageSize(),pageable.getSort())))
                 .withRel("first"));
 
         if(page.getTotalPages() > 1){
-            pagedModel.add(linkTo(methodOn(TagController.class)
+            pagedModel.add(linkTo(methodOn(TagControllerImpl.class)
                     .getAll(searchName, PageRequest.of(page.getTotalPages()-1,pageable.getPageSize(),pageable.getSort())))
                     .withRel("last"));
         }

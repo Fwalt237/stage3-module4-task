@@ -14,6 +14,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/tags")
 @RequiredArgsConstructor
-public class TagControllerImpl {
+public class TagController {
 
     private final TagService tagService;
     private final TagModelAssembler assembler;
@@ -53,6 +54,7 @@ public class TagControllerImpl {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<EntityModel<TagDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) TagDtoRequest createRequest) {
         TagDtoResponse tag = tagService.create(createRequest);
@@ -77,6 +79,7 @@ public class TagControllerImpl {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         tagService.deleteById(id);
         return ResponseEntity.noContent().build();

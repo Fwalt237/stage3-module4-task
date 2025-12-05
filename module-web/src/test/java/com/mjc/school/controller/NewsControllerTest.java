@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.*;
 @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/cleanup.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class NewsControllerImplTest {
+class NewsControllerTest {
 
     @LocalServerPort
     private int port;

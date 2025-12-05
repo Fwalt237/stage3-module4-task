@@ -15,6 +15,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/news")
 @RequiredArgsConstructor
-public class NewsControllerImpl {
+public class NewsController {
 
     private final NewsService newsService;
     private final NewsModelAssembler assembler;
@@ -67,6 +68,7 @@ public class NewsControllerImpl {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<EntityModel<NewsDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) NewsDtoRequest createRequest) {
         NewsDtoResponse news = newsService.create(createRequest);
@@ -91,6 +93,7 @@ public class NewsControllerImpl {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         newsService.deleteById(id);
         return ResponseEntity.noContent().build();

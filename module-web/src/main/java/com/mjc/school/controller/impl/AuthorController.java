@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/stage3-module4-task/v1/authors")
 @RequiredArgsConstructor
-public class AuthorControllerImpl {
+public class AuthorController {
 
     private final AuthorService authorService;
     private final AuthorModelAssembler assembler;
@@ -49,6 +50,7 @@ public class AuthorControllerImpl {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<EntityModel<AuthorDtoResponse>> create(
             @RequestBody @Validated(Mandatory.class) AuthorDtoRequest createRequest) {
         AuthorDtoResponse author = authorService.create(createRequest);
@@ -74,6 +76,7 @@ public class AuthorControllerImpl {
 
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         authorService.deleteById(id);
         return ResponseEntity.noContent().build();

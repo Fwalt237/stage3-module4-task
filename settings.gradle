@@ -6,4 +6,4 @@ pluginManagement {
 
 
 rootProject.name = 'stage3-module4-task'
-include 'main-module', 'repository-module', 'service-module','web-module'
+include 'module-main', 'module-repository', 'module-service', 'module-web'

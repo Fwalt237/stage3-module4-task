@@ -5,5 +5,5 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 
-    implementation project(':repository-module')
+    implementation project(':module-repository')
 }

@@ -17,13 +17,7 @@ application {
 }
 
 dependencies {
-    implementation project(':web-module')
+    implementation project(':module-web')
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.rest-assured:rest-assured'
 }
 
-test {
-    useJUnitPlatform()
-    systemProperty "spring.profiles.active", "test"
-}

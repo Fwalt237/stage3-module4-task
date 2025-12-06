@@ -22,7 +22,7 @@ public class TagModelAssembler {
         model.add(linkTo(methodOn(TagController.class).getById(id)).withSelfRel());
         model.add(linkTo(methodOn(TagController.class).update(id,null)).withRel("update"));
         model.add(linkTo(methodOn(TagController.class).patch(id,null)).withRel("patch"));
-        model.add(linkTo(methodOn(TagController.class).deleteById(id)).withRel("delete"));
+        model.add(linkTo(TagController.class).slash(id).withRel("delete"));
 
         return model;
     }

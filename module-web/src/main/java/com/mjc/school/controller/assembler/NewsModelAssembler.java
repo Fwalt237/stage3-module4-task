@@ -27,7 +27,7 @@ public class NewsModelAssembler {
         model.add(linkTo(methodOn(NewsController.class).getById(id)).withSelfRel());
         model.add(linkTo(methodOn(NewsController.class).update(id,null)).withRel("update"));
         model.add(linkTo(methodOn(NewsController.class).patch(id,null)).withRel("patch"));
-        model.add(linkTo(methodOn(NewsController.class).deleteById(id)).withRel("delete"));
+        model.add(linkTo(NewsController.class).slash(id).withRel("delete"));
         model.add(linkTo(methodOn(AuthorController.class).getByNewsId(id)).withRel("author"));
         model.add(linkTo(methodOn(TagController.class).getByNewsId(id)).withRel("tags"));
         model.add(linkTo(methodOn(CommentController.class).getByNewsId(id)).withRel("comments"));

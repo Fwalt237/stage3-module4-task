@@ -23,7 +23,7 @@ public class AuthorModelAssembler {
         model.add(linkTo(methodOn(AuthorController.class).getById(id)).withSelfRel());
         model.add(linkTo(methodOn(AuthorController.class).update(id,null)).withRel("update"));
         model.add(linkTo(methodOn(AuthorController.class).patch(id,null)).withRel("patch"));
-        model.add(linkTo(methodOn(AuthorController.class).deleteById(id)).withRel("delete"));
+        model.add(linkTo(AuthorController.class).slash(id).withRel("delete"));
 
         return model;
     }

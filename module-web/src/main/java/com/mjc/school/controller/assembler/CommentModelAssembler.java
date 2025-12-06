@@ -21,7 +21,7 @@ public class CommentModelAssembler {
         model.add(linkTo(methodOn(CommentController.class).getById(id)).withSelfRel());
         model.add(linkTo(methodOn(CommentController.class).update(id,null)).withRel("update"));
         model.add(linkTo(methodOn(CommentController.class).patch(id,null)).withRel("patch"));
-        model.add(linkTo(methodOn(CommentController.class).deleteById(id)).withRel("delete"));
+        model.add(linkTo(CommentController.class).slash(id).withRel("delete"));
 
         return model;
     }
